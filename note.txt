@@ -1,0 +1,42 @@
+Failed initializing MeCab. Please see the README for possible solutions:
+
+    https://github.com/SamuraiT/mecab-python3#common-issues
+
+If you are still having trouble, please file an issue here, and include the
+ERROR DETAILS below:
+
+    https://github.com/SamuraiT/mecab-python3/issues
+
+issueを英語で書く必要はありません。
+
+------------------- ERROR DETAILS ------------------------
+arguments: 
+[ifs] no such file or directory: /usr/local/miniconda3/lib/python3.10/site-packages/unidic/dicdir/mecabrc
+----------------------------------------------------------
+
+
+Cannot import /hy-tmp/ComfyUI/custom_nodes/ComfyUI-OpenVoice module for custom nodes: 
+----------------------------------------------------------
+
+Failed initializing MeCab. Please see the README for possible solutions:
+
+    https://github.com/SamuraiT/mecab-python3#common-issues
+
+If you are still having trouble, please file an issue here, and include the
+ERROR DETAILS below:
+
+    https://github.com/SamuraiT/mecab-python3/issues
+
+issueを英語で書く必要はありません。
+
+------------------- ERROR DETAILS ------------------------
+arguments: 
+[ifs] no such file or directory: /usr/local/miniconda3/lib/python3.10/site-packages/unidic/dicdir/mecabrc
+----------------------------------------------------------
+
+cp -r /usr/local/miniconda3/lib/python3.10/site-packages/unidic_lite/dicdir /usr/local/miniconda3/lib/python3.10/site-packages/unidic/
+
+
+Could not load library libcudnn_cnn_infer.so.8. Error: /usr/lib/x86_64-linux-gnu/libcudnn_cnn_infer.so.8: undefined symbol: _ZN11nvrtcHelper4loadEb, version libcudnn_ops_infer.so.8
+
+conda install -c conda-forge cudnn
