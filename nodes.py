@@ -14,8 +14,7 @@ now_dir = os.path.dirname(os.path.abspath(__file__))
 device = "cuda" if cuda_malloc.cuda_malloc_supported() else "cpu"
 out_path = folder_paths.get_output_directory()
 input_path = folder_paths.get_input_directory()
-language_list = ["en-au","en-br","en-default","en-india",
-                 "en-newest","en-us","es","fr","jp","kr","zh"]
+language_list = ["EN", "EN_NEWEST", 'KR', 'ES', 'FR', "ZH","JP"]
 ckpt_converter = os.path.join(now_dir, 'checkpoints_v2','converter')
 
 class OpenVoiceSRT:
@@ -26,7 +25,7 @@ class OpenVoiceSRT:
                      "text_srt":("SRT",),
                      "reference_speaker":("AUDIO",),
                      "language":(language_list,{
-                         "default": "zh"
+                         "default": "ZH"
                      })
                     }
                 }
@@ -54,7 +53,8 @@ class OpenVoiceSRT:
         model = TTS(language=language, device=device)
         speaker_ids = model.hps.data.spk2id
         speaker_id = speaker_ids[language]
-        source_se = torch.load(os.path.join(now_dir,'checkpoints_v2','base_speakers','ses','{speaker_key}.pth'), map_location=device)
+        speaker_key = language.lower().replace('_', '-')
+        source_se = torch.load(os.path.join(now_dir,'checkpoints_v2','base_speakers','ses',f'{speaker_key}.pth'), map_location=device)
         
         for i,text_sub in enumerate(text_subtitles):
             start_time = text_sub.start.total_seconds() * 1000
@@ -66,7 +66,7 @@ class OpenVoiceSRT:
             refer_wav_seg.export(refer_wav, format='wav')
 
             outfile = os.path.join(refer_wav_root, f"{i}_openvoice_infer.wav")
-            text = text_sub.file_content
+            text = text_sub.content
             
             target_se, audio_name = se_extractor.get_se(refer_wav, tone_color_converter, vad=False)
             
@@ -137,7 +137,7 @@ class OpenVoice:
                 "default": "你好，世界！"
             }),
             "language":(language_list,{
-                "default": "zh"
+                "default": "ZH"
             }),
             "speed":("FLOAT",{
                 "default": 1.0,
@@ -165,9 +165,10 @@ class OpenVoice:
         model = TTS(language=language, device=device)
         speaker_ids = model.hps.data.spk2id
         speaker_id = speaker_ids[language]
-        source_se = torch.load(os.path.join(now_dir,'checkpoints_v2','base_speakers','ses','{speaker_key}.pth'), map_location=device)
+        speaker_key = language.lower().replace('_', '-')
+        source_se = torch.load(os.path.join(now_dir,'checkpoints_v2','base_speakers','ses',f'{speaker_key}.pth'), map_location=device)
         model.tts_to_file(text, speaker_id, src_path, speed=speed)
-        save_path = os.path.join(out_path,f"openvoice_v2_{language}.wav")
+        save_path = os.path.join(out_path,f"{time.time()}_openvoice_v2_{speaker_key}.wav")
         # Run the tone color converter
         encode_message = "@AIFSH"
         tone_color_converter.convert(
