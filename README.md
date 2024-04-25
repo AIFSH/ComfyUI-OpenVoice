@@ -17,7 +17,7 @@ apt install ffmpeg
 for Windows,you can install `ffmpeg` by [WingetUI](https://github.com/marticliment/WingetUI) automatically
 
 
-Download the checkpoint from [here](https://myshell-public-repo-hosting.s3.amazonaws.com/openvoice/checkpoints_v2_0417.zip) and extract it to the `checkpoints_v2` folder.
+Download the checkpoint from [here](https://myshell-public-repo-hosting.s3.amazonaws.com/openvoice/checkpoints_v2_0417.zip) and extract it to the `ComfyUI-OpenVoice` folder.
 
 ```
 git clone https://github.com/AIFSH/ComfyUI-OpenVoice.git
@@ -41,20 +41,22 @@ Please make sure libcudnn_cnn_infer.so.8 is in your library path!
 
 https://github.com/vladmandic/automatic/discussions/540
 
-1. fix by
+fix by
 ```
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/miniconda3/lib/python3.10/site-packages/torch/lib
 ```
 
-2. issueを英語で書く必要はありません。
+2.
+```
+issueを英語で書く必要はありません。
 
 ------------------- ERROR DETAILS ------------------------
 
 arguments: 
 [ifs] no such file or directory: /usr/local/miniconda3/lib/python3.10/site-packages/unidic/dicdir/mecabrc
 ----------------------------------------------------------
-
-2. fix by
+```
+fix by
 ```
 cp -r /usr/local/miniconda3/lib/python3.10/site-packages/unidic_lite/dicdir /usr/local/miniconda3/lib/python3.10/site-packages/unidic/
 ```
