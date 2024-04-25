@@ -49,6 +49,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/miniconda3/lib/python3.10/sit
 2. issueを英語で書く必要はありません。
 
 ------------------- ERROR DETAILS ------------------------
+
 arguments: 
 [ifs] no such file or directory: /usr/local/miniconda3/lib/python3.10/site-packages/unidic/dicdir/mecabrc
 ----------------------------------------------------------
