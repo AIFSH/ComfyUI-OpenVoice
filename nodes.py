@@ -14,7 +14,7 @@ now_dir = os.path.dirname(os.path.abspath(__file__))
 device = "cuda" if cuda_malloc.cuda_malloc_supported() else "cpu"
 out_path = folder_paths.get_output_directory()
 input_path = folder_paths.get_input_directory()
-language_list = ["EN", "EN_NEWEST", 'KR', 'ES', 'FR', "ZH","JP"]
+language_list = ["EN-Default", "EN_NEWEST",'EN-AU', 'EN_INDIA','EN-US','EN-BR','KR', 'ES', 'FR', "ZH","JP"]
 ckpt_converter = os.path.join(now_dir, 'checkpoints_v2','converter')
 
 class OpenVoiceSRT:
@@ -50,7 +50,11 @@ class OpenVoiceSRT:
         tone_color_converter = ToneColorConverter(os.path.join(ckpt_converter,'config.json'), device=device)
         tone_color_converter.load_ckpt(os.path.join(ckpt_converter,'checkpoint.pth'))
         
-        model = TTS(language=language, device=device)
+        if "EN" in language:
+            tts_language = "EN"
+        else:
+            tts_language = language
+        model = TTS(language=tts_language, device=device)
         speaker_ids = model.hps.data.spk2id
         speaker_id = speaker_ids[language]
         speaker_key = language.lower().replace('_', '-')
@@ -134,7 +138,7 @@ class OpenVoice:
             "reference_speaker": ("AUDIO",),
             "text":("STRING",{
                 "multiline": True,
-                "default": "你好，世界！"
+                "default": "你好啊，世界！"
             }),
             "language":(language_list,{
                 "default": "ZH"
@@ -162,8 +166,13 @@ class OpenVoice:
         target_se, audio_name = se_extractor.get_se(reference_speaker, tone_color_converter, vad=False)
         
         src_path = os.path.join(out_path, "openvoice_v2_tmp.wav")
-        model = TTS(language=language, device=device)
+        if "EN" in language:
+            tts_language = "EN"
+        else:
+            tts_language = language
+        model = TTS(language=tts_language, device=device)
         speaker_ids = model.hps.data.spk2id
+        print(speaker_ids)
         speaker_id = speaker_ids[language]
         speaker_key = language.lower().replace('_', '-')
         source_se = torch.load(os.path.join(now_dir,'checkpoints_v2','base_speakers','ses',f'{speaker_key}.pth'), map_location=device)

@@ -3,7 +3,8 @@ from . import cleaned_text_to_sequence
 import copy
 
 language_module_map = {"ZH": chinese, "JP": japanese, "EN": english, 'ZH_MIX_EN': chinese_mix, 'KR': korean,
-                    'FR': french, 'SP': spanish, 'ES': spanish}
+                    'FR': french, 'SP': spanish, 'ES': spanish,"EN-Default": english, "EN_NEWEST": english,
+                    'EN-AU': english, 'EN_INDIA': english,'EN-US': english,'EN-BR': english}
 
 
 def clean_text(text, language):
